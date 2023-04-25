@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet.wms.js"></script>
+        <script src="data/Perimeter_6.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[47.253839233004975,8.040273666787034],[47.265512458655316,8.049416711791526]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_Relief_0');
+        map.getPane('pane_Relief_0').style.zIndex = 400;
+        var layer_Relief_0 = L.WMS.layer("https://wms.geo.admin.ch/?VERSION=1.3.0", "ch.swisstopo.swissalti3d-reliefschattierung", {
+            pane: 'pane_Relief_0',
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+            attribution: '',
+        });
+        map.addLayer(layer_Relief_0);
+        map.createPane('pane_Luftbild_1');
+        map.getPane('pane_Luftbild_1').style.zIndex = 401;
+        var layer_Luftbild_1 = L.WMS.layer("https://wms.geo.admin.ch/?VERSION=1.3.0", "ch.swisstopo.swissimage", {
+            pane: 'pane_Luftbild_1',
+            format: 'image/jpeg',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+            attribution: '',
+        });
+        map.addLayer(layer_Luftbild_1);
+        map.createPane('pane_Landeskarte_2');
+        map.getPane('pane_Landeskarte_2').style.zIndex = 402;
+        var layer_Landeskarte_2 = L.WMS.layer("https://wms.geo.admin.ch/?VERSION=1.3.0", "ch.swisstopo.pixelkarte-farbe", {
+            pane: 'pane_Landeskarte_2',
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+            attribution: '',
+        });
+        map.addLayer(layer_Landeskarte_2);
+        map.createPane('pane_TPI_3');
+        map.getPane('pane_TPI_3').style.zIndex = 403;
+        var img_TPI_3 = 'data/TPI_3.png';
+        var img_bounds_TPI_3 = [[47.2371796700207,8.006515365826102],[47.291489650856484,8.073186490455697]];
+        var layer_TPI_3 = new L.imageOverlay(img_TPI_3,
+                                              img_bounds_TPI_3,
+                                              {pane: 'pane_TPI_3'});
+        bounds_group.addLayer(layer_TPI_3);
+        map.addLayer(layer_TPI_3);
+        map.createPane('pane_TCI_4');
+        map.getPane('pane_TCI_4').style.zIndex = 404;
+        var img_TCI_4 = 'data/TCI_4.png';
+        var img_bounds_TCI_4 = [[47.2371796700207,8.006515365826102],[47.291489650856484,8.073186490455697]];
+        var layer_TCI_4 = new L.imageOverlay(img_TCI_4,
+                                              img_bounds_TCI_4,
+                                              {pane: 'pane_TCI_4'});
+        bounds_group.addLayer(layer_TCI_4);
+        map.addLayer(layer_TCI_4);
+        map.createPane('pane_Hangneigung_5');
+        map.getPane('pane_Hangneigung_5').style.zIndex = 405;
+        var img_Hangneigung_5 = 'data/Hangneigung_5.png';
+        var img_bounds_Hangneigung_5 = [[47.2371796700207,8.006515365826102],[47.273501123415855,8.072972895797303]];
+        var layer_Hangneigung_5 = new L.imageOverlay(img_Hangneigung_5,
+                                              img_bounds_Hangneigung_5,
+                                              {pane: 'pane_Hangneigung_5'});
+        bounds_group.addLayer(layer_Hangneigung_5);
+        map.addLayer(layer_Hangneigung_5);
+        function pop_Perimeter_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Layer'] !== null ? autolinker.link(feature.properties['Layer'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Perimeter_6_0() {
+            return {
+                pane: 'pane_Perimeter_6',
+                opacity: 1,
+                color: 'rgba(255,1,5,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_Perimeter_6');
+        map.getPane('pane_Perimeter_6').style.zIndex = 406;
+        map.getPane('pane_Perimeter_6').style['mix-blend-mode'] = 'normal';
+        var layer_Perimeter_6 = new L.geoJson(json_Perimeter_6, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Perimeter_6',
+            layerName: 'layer_Perimeter_6',
+            pane: 'pane_Perimeter_6',
+            onEachFeature: pop_Perimeter_6,
+            style: style_Perimeter_6_0,
+        });
+        bounds_group.addLayer(layer_Perimeter_6);
+        map.addLayer(layer_Perimeter_6);
+        map.createPane('pane_Feldplaene_7');
+        map.getPane('pane_Feldplaene_7').style.zIndex = 407;
+        var img_Feldplaene_7 = 'data/Feldplaene_7.png';
+        var img_bounds_Feldplaene_7 = [[47.241552207244865,8.02392087230344],[47.26958376886594,8.063258826864308]];
+        var layer_Feldplaene_7 = new L.imageOverlay(img_Feldplaene_7,
+                                              img_bounds_Feldplaene_7,
+                                              {pane: 'pane_Feldplaene_7'});
+        bounds_group.addLayer(layer_Feldplaene_7);
+        map.addLayer(layer_Feldplaene_7);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{"Feldplaene": layer_Feldplaene_7,'<img src="legend/Perimeter_6.png" /> Perimeter': layer_Perimeter_6,"Hangneigung": layer_Hangneigung_5,"TCI": layer_TCI_4,"TPI": layer_TPI_3,"Landeskarte": layer_Landeskarte_2,"Luftbild": layer_Luftbild_1,"Relief": layer_Relief_0,}).addTo(map);
+        setBounds();
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        </script>
+    </body>
+</html>
