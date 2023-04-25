@@ -39,12 +39,12 @@
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
-        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        L.control.locate({locateOptions: {maxZoom: 18}}).addTo(map);
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
         map.createPane('pane_Relief_0');
-        map.getPane('pane_Relief_0').style.zIndex = 400;
+        map.getPane('pane_Relief_0').style.zIndex = 200;
         var layer_Relief_0 = L.WMS.layer("https://wms.geo.admin.ch/?VERSION=1.3.0", "ch.swisstopo.swissalti3d-reliefschattierung", {
             pane: 'pane_Relief_0',
             format: 'image/png',
@@ -55,11 +55,12 @@
             info_format: 'text/html',
             opacity: 1,
             identify: false,
-            attribution: '',
+            attribution: 'Swisstopo',
+	    maxZoom: 22,
         });
         map.addLayer(layer_Relief_0);
         map.createPane('pane_Luftbild_1');
-        map.getPane('pane_Luftbild_1').style.zIndex = 401;
+        map.getPane('pane_Luftbild_1').style.zIndex = 201;
         var layer_Luftbild_1 = L.WMS.layer("https://wms.geo.admin.ch/?VERSION=1.3.0", "ch.swisstopo.swissimage", {
             pane: 'pane_Luftbild_1',
             format: 'image/jpeg',
@@ -70,11 +71,12 @@
             info_format: 'text/html',
             opacity: 1,
             identify: false,
+	    maxZoom: 22,
             attribution: '',
         });
         map.addLayer(layer_Luftbild_1);
         map.createPane('pane_Landeskarte_2');
-        map.getPane('pane_Landeskarte_2').style.zIndex = 402;
+        map.getPane('pane_Landeskarte_2').style.zIndex = 202;
         var layer_Landeskarte_2 = L.WMS.layer("https://wms.geo.admin.ch/?VERSION=1.3.0", "ch.swisstopo.pixelkarte-farbe", {
             pane: 'pane_Landeskarte_2',
             format: 'image/png',
@@ -86,6 +88,7 @@
             opacity: 1,
             identify: false,
             attribution: '',
+	    maxZoom: 18,
         });
         map.addLayer(layer_Landeskarte_2);
         map.createPane('pane_TPI_3');
@@ -160,8 +163,8 @@
                                               {pane: 'pane_Feldplaene_7'});
         bounds_group.addLayer(layer_Feldplaene_7);
         map.addLayer(layer_Feldplaene_7);
-        var baseMaps = {};
-        L.control.layers(baseMaps,{"Feldplaene": layer_Feldplaene_7,'<img src="legend/Perimeter_6.png" /> Perimeter': layer_Perimeter_6,"Hangneigung": layer_Hangneigung_5,"TCI": layer_TCI_4,"TPI": layer_TPI_3,"Landeskarte": layer_Landeskarte_2,"Luftbild": layer_Luftbild_1,"Relief": layer_Relief_0,}).addTo(map);
+        var baseMaps = {"Landeskarte": layer_Landeskarte_2,"Luftbild": layer_Luftbild_1,"Relief": layer_Relief_0,};
+        L.control.layers(baseMaps,{"Feldplaene": layer_Feldplaene_7,'<img src="legend/Perimeter_6.png" /> Perimeter': layer_Perimeter_6,"Hangneigung": layer_Hangneigung_5,"TCI": layer_TCI_4,"TPI": layer_TPI_3,}).addTo(map);
         setBounds();
         L.ImageOverlay.include({
             getBounds: function () {
