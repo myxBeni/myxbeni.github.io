@@ -154,17 +154,17 @@
         });
         bounds_group.addLayer(layer_Perimeter_6);
         map.addLayer(layer_Perimeter_6);
+
         map.createPane('pane_Feldplaene_7');
-        map.getPane('pane_Feldplaene_7').style.zIndex = 407;
-        var img_Feldplaene_7 = 'data/Feldplaene_7.png';
-        var img_bounds_Feldplaene_7 = [[47.241552207244865,8.02392087230344],[47.26958376886594,8.063258826864308]];
-        var layer_Feldplaene_7 = new L.imageOverlay(img_Feldplaene_7,
-                                              img_bounds_Feldplaene_7,
-                                              {pane: 'pane_Feldplaene_7'});
-        bounds_group.addLayer(layer_Feldplaene_7);
+        map.getPane('pane_Feldplaene_7').style.zIndex = 504;
+        //var img_Feldplaene_7 = 'data/Feldplaene_7.png';
+        //var img_bounds_Feldplaene_7 = [[47.241552207244865,8.02392087230344],[47.26958376886594,8.063258826864308]];
+        var layer_Feldplaene_7 = new L.tileLayer('https://myx.ch/Reitnau/Feldplan_Tiles/{z}/{x}/{-y}.png', {attribution: "myx.ch", minZoom: 1, maxZoom: 25, pane: 'pane_Feldplaene_7'});
+        //bounds_group.addLayer(layer_Feldplaene_7);
         map.addLayer(layer_Feldplaene_7);
+	layer_Feldplaene_7.bringToBack();
         var baseMaps = {"Landeskarte": layer_Landeskarte_2,"Luftbild": layer_Luftbild_1,"Relief": layer_Relief_0,};
-        L.control.layers(baseMaps,{"Feldplaene": layer_Feldplaene_7,'<img src="legend/Perimeter_6.png" /> Perimeter': layer_Perimeter_6,"Hangneigung": layer_Hangneigung_5,"TCI": layer_TCI_4,"TPI": layer_TPI_3,}).addTo(map);
+        L.control.layers(baseMaps,{"Feldpläne": layer_Feldplaene_7,'<img src="legend/Perimeter_6.png" /> Perimeter': layer_Perimeter_6,"Hangneigung": layer_Hangneigung_5,"TCI": layer_TCI_4,"TPI": layer_TPI_3,}).addTo(map);
         setBounds();
         L.ImageOverlay.include({
             getBounds: function () {
